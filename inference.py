@@ -73,8 +73,8 @@ def main():
     lx, ly, rx, ry = int(lx), int(ly), int(rx), int(ry)
     oy1, oy2, ox1, ox2 = cly+ly, min(cly+ry, full_frames[0].shape[0]), clx+lx, min(clx+rx, full_frames[0].shape[1])
     # original_size = (ox2 - ox1, oy2 - oy1)
-    frames_pil = [Image.fromarray(cv2.resize(frame,(256,256))) for frame in full_frames_RGB]
-    #frames_pil = [Image.fromarray(frame) for frame in full_frames_RGB]
+    #frames_pil = [Image.fromarray(cv2.resize(frame,(256,256))) for frame in full_frames_RGB]
+    frames_pil = [Image.fromarray(frame) for frame in full_frames_RGB]
 
     # get the landmark according to the detected face.
     if not os.path.isfile('temp/'+base_name+'_landmarks.txt') or args.re_preprocess:
