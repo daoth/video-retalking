@@ -73,14 +73,13 @@ with gr.Blocks() as demo:
         # Right Column: Output components
         with gr.Column(scale=1):
             output_text = gr.Textbox(label="Processing Status", lines=10)
-            audio_output = gr.Audio(label="Audio Output", type="filepath")
             video_output = gr.Video(label="Processed MP4 Output")
 
     # Link the button to the processing function
     process_button.click(
         fn=process_files,
         inputs=[video_input, audio_input],
-        outputs=[output_text, video_output, audio_output]
+        outputs=[output_text, video_output]
     )
 
 # Launch the Gradio app
