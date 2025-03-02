@@ -46,9 +46,12 @@ def main():
     elif args.face.split('.')[1] in ['jpg', 'png', 'jpeg']:
         full_frames = [cv2.imread(args.face)]
         fps = args.fps
+        frame_width, frame_height = full_frames[0].shape[1], full_frames[0].shape[0]
     else:
         video_stream = cv2.VideoCapture(args.face)
         fps = video_stream.get(cv2.CAP_PROP_FPS)
+        frame_width = int(video_stream.get(cv2.CAP_PROP_FRAME_WIDTH))
+        frame_height = int(video_stream.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
         full_frames = []
         while True:
@@ -73,8 +76,7 @@ def main():
     lx, ly, rx, ry = int(lx), int(ly), int(rx), int(ry)
     oy1, oy2, ox1, ox2 = cly+ly, min(cly+ry, full_frames[0].shape[0]), clx+lx, min(clx+rx, full_frames[0].shape[1])
     # original_size = (ox2 - ox1, oy2 - oy1)
-    #frames_pil = [Image.fromarray(cv2.resize(frame,(256,256))) for frame in full_frames_RGB]
-    frames_pil = [Image.fromarray(frame) for frame in full_frames_RGB]
+    frames_pil = [Image.fromarray(cv2.resize(frame,(frame_width,frame_height))) for frame in full_frames_RGB]
 
     # get the landmark according to the detected face.
     if not os.path.isfile('temp/'+base_name+'_landmarks.txt') or args.re_preprocess:
