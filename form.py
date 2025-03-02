@@ -15,23 +15,23 @@ def process_files(video_input, audio_input, progress=gr.Progress(track_tqdm=True
     audio_output_path = "saved_audio.mp3"
     shutil.copy(audio_input, audio_output_path)
     
-    cap = cv2.VideoCapture(video_output_path)
-    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    fps = int(cap.get(cv2.CAP_PROP_FPS))
-    mp4Duration = frame_count / fps
+    # cap = cv2.VideoCapture(video_output_path)
+    # frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    # fps = int(cap.get(cv2.CAP_PROP_FPS))
+    # mp4Duration = frame_count / fps
     
-    y, sr = librosa.load(audio_output_path, sr=None)
-    mp3Duration = librosa.get_duration(y=y, sr=sr)
+    # y, sr = librosa.load(audio_output_path, sr=None)
+    # mp3Duration = librosa.get_duration(y=y, sr=sr)
     
-    silence_duration = max(0, mp4Duration - mp3Duration)
+    # silence_duration = max(0, mp4Duration - mp3Duration)
     
-    audio = AudioSegment.from_mp3(audio_output_path)
-    silence = AudioSegment.silent(duration=silence_duration)
-    extended_audio = audio + silence
-    extended_audio.export(audio_output_path, format="mp3")
+    # audio = AudioSegment.from_mp3(audio_output_path)
+    # silence = AudioSegment.silent(duration=silence_duration)
+    # extended_audio = audio + silence
+    # extended_audio.export(audio_output_path, format="mp3")
     
-    y, sr = librosa.load(audio_output_path, sr=None)
-    mp3DurationAfter = librosa.get_duration(y=y, sr=sr)
+    # y, sr = librosa.load(audio_output_path, sr=None)
+    # mp3DurationAfter = librosa.get_duration(y=y, sr=sr)
     
     #return (text, video_output_path, audio_output_path);
     
@@ -45,7 +45,8 @@ def process_files(video_input, audio_input, progress=gr.Progress(track_tqdm=True
     ]
     try:
         result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        text = f'MP4 Duration: {mp4Duration}\nMP3 Duration before: {mp3Duration}\nMP3 Duration after: {mp3DurationAfter}'
+        #text = f'MP4 Duration: {mp4Duration}\nMP3 Duration before: {mp3Duration}\nMP3 Duration after: {mp3DurationAfter}'
+        text = "ok"
         
         return (
             text,
